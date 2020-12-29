@@ -3,43 +3,14 @@ package model;
 public class Chessboard {
     private final Figure[][] board;
     private final int size;
-    private boolean whiteMotion;
+    private boolean whiteMove;
+    private boolean isComplete;
 
     public Chessboard() {
         size = 8;
         board = new Figure[size][size];
-        resetBoard();
-    }
-
-    public void resetBoard() {
-        whiteMotion = true;
-
-        for(var i = 2; i < 7; i++) {
-            for(var j = 2; j < 7; j++) {
-                board[i][j] = null;
-            }
-        }
-
-        for (var i = 0; i < 8; i++) {
-            board[1][i] = new Figure(FigureType.PAWN, new Point(i, 1), false);
-            board[6][i] = new Figure(FigureType.PAWN, new Point(i, 6), true);
-        }
-        board[0][0] = new Figure(FigureType.ROOK, new Point(0, 1), false);
-        board[7][0] = new Figure(FigureType.ROOK, new Point(0, 7), true);
-        board[0][7] = new Figure(FigureType.ROOK, new Point(7, 0), false);
-        board[7][7] = new Figure(FigureType.ROOK, new Point(7, 7), true);
-        board[0][1] = new Figure(FigureType.KNIGHT, new Point(1, 0), false);
-        board[7][1] = new Figure(FigureType.KNIGHT, new Point(1, 7), true);
-        board[0][6] = new Figure(FigureType.KNIGHT, new Point(6, 0), false);
-        board[7][6] = new Figure(FigureType.KNIGHT, new Point(6, 7), true);
-        board[0][2] = new Figure(FigureType.BISHOP, new Point(2, 0), false);
-        board[7][2] = new Figure(FigureType.BISHOP, new Point(2, 7), true);
-        board[0][5] = new Figure(FigureType.BISHOP, new Point(5, 0), false);
-        board[7][5] = new Figure(FigureType.BISHOP, new Point(5, 7), true);
-        board[0][3] = new Figure(FigureType.QUEEN, new Point(3, 0), false);
-        board[7][3] = new Figure(FigureType.QUEEN, new Point(3, 7), true);
-        board[0][4] = new Figure(FigureType.KING, new Point(4, 0), false);
-        board[7][4] = new Figure(FigureType.KING, new Point(4, 7), true);
+        whiteMove = true;
+        isComplete = false;
     }
 
     public Figure[][] getBoard() {
@@ -59,11 +30,19 @@ public class Chessboard {
         return size;
     }
 
-    public boolean isWhiteMotion() {
-        return whiteMotion;
+    public boolean isWhiteMove() {
+        return whiteMove;
     }
 
-    public void setWhiteMotion(boolean whiteMotion) {
-        this.whiteMotion = whiteMotion;
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    public void setWhiteMove(boolean whiteMove) {
+        this.whiteMove = whiteMove;
+    }
+
+    public void setComplete(boolean complete) {
+        isComplete = complete;
     }
 }

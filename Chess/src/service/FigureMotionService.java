@@ -17,8 +17,8 @@ public class FigureMotionService {
         }
     }
     public static boolean isBishopMoveValid(final Chessboard chessboard, final Figure figure, final int destRow, final int destCol) {
-        var value = ((Math.abs(figure.getPosition().getY() - destRow) == Math.abs(figure.getPosition().getX() - destCol)));
-        if (value) {
+        var canMove = ((Math.abs(figure.getPosition().getY() - destRow) == Math.abs(figure.getPosition().getX() - destCol)));
+        if (canMove) {
             var multiplierX = figure.getPosition().getX() < destCol ? 1 : -1;
             var multiplierY = figure.getPosition().getY() < destRow ? 1 : -1;
             for(int i = 0; i < Math.abs(figure.getPosition().getX() - destCol) - 1; i++) {
@@ -26,7 +26,7 @@ public class FigureMotionService {
                     return false;
             }
         }
-        return value;
+        return canMove;
     }
     public static boolean isKingMoveValid(final Figure figure, final int destRow, final int destCol) {
         return Math.abs(destRow - figure.getPosition().getY()) <= 1 || Math.abs(destCol - figure.getPosition().getX()) <= 1;
@@ -39,8 +39,8 @@ public class FigureMotionService {
         return isBishopMoveValid(chessboard, figure, destRow, destCol) || isRookMoveValid(chessboard, figure, destRow, destCol);
     }
     public static boolean isRookMoveValid(final Chessboard chessboard, final Figure figure, final int destRow, final int destCol) {
-        var value = !((figure.getPosition().getY() != destRow) && (figure.getPosition().getX() != destCol));
-        if (value) {
+        var canMove = !((figure.getPosition().getY() != destRow) && (figure.getPosition().getX() != destCol));
+        if (canMove) {
             if (figure.getPosition().getY() != destRow) {
                 var multiplierY = figure.getPosition().getY() < destRow ? 1 : -1;
                 for (int i = 0; i < Math.abs(figure.getPosition().getY() - destRow); i++) {
@@ -56,7 +56,7 @@ public class FigureMotionService {
                 }
             }
         }
-        return value;
+        return canMove;
     }
 
     public static boolean isMoveValid(final Chessboard chessboard, final Figure figure, final int x, final int y) {

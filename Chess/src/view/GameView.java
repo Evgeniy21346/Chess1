@@ -21,6 +21,7 @@ public class GameView {
 
     public GameView() {
         chessboard = new Chessboard();
+        ChessboardService.resetBoard(chessboard);
     }
 
     public void init() {
@@ -61,6 +62,12 @@ public class GameView {
                             alert.setHeaderText("");
                             alert.showAndWait();
                         }
+                        if (chessboard.isComplete()) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, chessboard.isWhiteMove() ? "Black is win" : "White is win", ButtonType.YES);
+                            alert.setHeaderText("");
+                            alert.showAndWait();
+                            ChessboardService.resetBoard(chessboard);
+                        }
                         buttons[finalI + 1][finalJ + 1].setStyle("-fx-font-size: 24px; -fx-background-color: " + color +";");
                         buttons[touch.getY() + 1][touch.getX() + 1].setStyle(
                                 "-fx-font-size: 24px;" +
@@ -95,7 +102,7 @@ public class GameView {
                 buttons[i + 1][j + 1].setText(FigureView.getImage(chessboard.getFigure(j, i)));
             }
         }
-        turn_label.setText(chessboard.isWhiteMotion() ? "White turn" : "Black turn");
+        turn_label.setText(chessboard.isWhiteMove() ? "White turn" : "Black turn");
     }
 
     private Button createButton(String text) {
